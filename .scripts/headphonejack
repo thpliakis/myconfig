@@ -1,0 +1,13 @@
+#!/bin/bash
+acpi_listen | while IFS= read -r line;
+do
+    if [ "$line" = "jack/headphone HEADPHONE plug" ]
+    then
+       amixer -q -D pulse set Master unmute && pkill -RTMIN+10 i3blocks
+       #notify-send "headphones connected. Sound is unmuted"
+    elif [ "$line" = "jack/headphone HEADPHONE unplug" ]
+    then
+       amixer -q -D pulse set Master mute && pkill -RTMIN+10 i3blocks
+       #notify-send "headphones disconnected.  Sound is muted"
+    fi
+done

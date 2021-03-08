@@ -1,0 +1,10 @@
+#!/bin/sh
+
+choices="laptop\nVGA"
+
+chosen=$(echo   "$choices" | dmenu -i)
+
+case "$chosen" in 
+  VGA) xrandr --output VGA1 --auto --right-of eDP1 ;;
+  laptop) xrandr --output eDP1  --auto --output VGA1 --off ;;
+esac
